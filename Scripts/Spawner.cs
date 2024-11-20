@@ -9,13 +9,14 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        CreateCubes(_initCubeCount,_cubePrefab,transform.position,Vector3.one);
+        _cubePrefab.transform.position = transform.position;
+        CreateCubes(_initCubeCount,_cubePrefab,Vector3.one);
     }
 
-    private void CreateCubes(int cubeCount,Cube cube,Vector3 position,Vector3 scale, int chance = 100)
+    private void CreateCubes(int cubeCount,Cube cube,Vector3 scale, int chance = 100)
     {
         for (int i = 0; i < cubeCount; i++)
-            CreateCube(cube, chance, scale, transform.position);
+            CreateCube(cube, chance, scale, cube.transform.position + Vector3.up);
     }
 
     private void CreateCube(Cube cube, int chance, Vector3 scale, Vector3 position)
@@ -40,6 +41,6 @@ public class Spawner : MonoBehaviour
         int _minCount = 2;
         int count = Random.Range(_minCount, _maxCount + 1);
         
-        CreateCubes(count,cube, cube.transform.position,scale, chance);
+        CreateCubes(count,cube,scale, chance);
     }
 }
