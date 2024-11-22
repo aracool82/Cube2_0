@@ -528,6 +528,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1084944849}
   - component: {fileID: 1084944848}
+  - component: {fileID: 1084944850}
+  - component: {fileID: 1084944851}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -548,7 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubePrefab: {fileID: 7699057804154231680, guid: cc22e38be8c5e854fb924374257ce198, type: 3}
-  _initCubeCount: 5
+  _initCubeCount: 10
   _radius: 2
 --- !u!4 &1084944849
 Transform:
@@ -565,6 +567,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1084944850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084944846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2efa9977627f2a40bc90dbc29980fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 963194227}
+--- !u!114 &1084944851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084944846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df7c161b4d30c840ac64859db55956b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1245040947
 GameObject:
   m_ObjectHideFlags: 0

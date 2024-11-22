@@ -1,46 +1,38 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(Rigidbody), typeof(BoxCollider), typeof(Exploder))]
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Rigidbody))]
+
 public class Cube : MonoBehaviour
 {
-    private Exploder _exploder;
-    private Spawner _spawner;
+    private Renderer _renderer;
 
     public int ChanceSplit { get; private set; } = 100;
     public Rigidbody Rigidbody { get; private set; }
 
-    private void OnMouseDown()
+    private void Awake()
     {
-        if (TrySplit())
-            _spawner.CreateCubes(this);
-        else
-            _exploder.Explode(transform.position, transform.localScale.y);
-            
-        Destroy(gameObject);
+        _renderer = GetComponent<Renderer>();
+        Rigidbody = GetComponent<Rigidbody>();
     }
-    
-    public void Initialize(int chance, Vector3 scale, Spawner spawner)
+
+    public void Initialize(int chance, Vector3 scale)
     {
         ChanceSplit = chance;
         transform.localScale = scale;
-        
-        _spawner = spawner;
-        _exploder = GetComponent<Exploder>();
-        Rigidbody = GetComponent<Rigidbody>();
-
         ChangeColor();
+    }
+
+    public bool TrySplit()
+    {
+        return GetChance() <= ChanceSplit;
     }
 
     private void ChangeColor()
     {
-        GetComponent<Renderer>().material.color = Random.ColorHSV();
-    }
-
-
-    private bool TrySplit()
-    {
-        return GetChance() <= ChanceSplit;
+        _renderer.material.color = Random.ColorHSV();
     }
 
     private int GetChance()

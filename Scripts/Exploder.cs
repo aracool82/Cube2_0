@@ -1,12 +1,29 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Spawner))]
 public class Exploder : MonoBehaviour
 {
+    private Spawner _spawner;
     private float _baseRadius = 5f;
     private float _baseForce = 500f;
     private float _baseScaleY = 1f;
 
-    public void Explode(Vector3 position, float scaleY)
+    private void Awake()
+    {
+        _spawner = GetComponent<Spawner>();
+    }
+
+    private void OnEnable()
+    {
+        _spawner.Exploding += Explode;
+    }
+
+    private void OnDisable()
+    {
+        _spawner.Exploding -= Explode;
+    }
+
+    private void Explode(Vector3 position, float scaleY)
     {
         float coefficent = CalculateCoefficent(scaleY);
         float radius =  coefficent * _baseRadius;
