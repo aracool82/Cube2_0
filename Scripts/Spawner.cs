@@ -2,45 +2,42 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(MouseInput))]
-[RequireComponent(typeof(Exploder))]
-
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] private Observer _observer;
     [SerializeField] private Cube _cubePrefab;
+    
     [SerializeField] private int _initCubeCount;
     [SerializeField] private float _radius = 2f;
 
-    private MouseInput _mouseInput;
     private int divider = 2;
 
-    public event Action<Vector3, float> Exploding; 
-    
+    public event Action<Vector3, float> Exploding;
+
     private void Awake()
     {
-        _mouseInput = GetComponent<MouseInput>();
+        _cubePrefab.transform.position = transform.position;
     }
 
     private void OnEnable()
     {
-        _mouseInput.DetectedCube += OnCubeHandler;
+        _observer.ClickedCube += OnClick;
     }
 
     private void OnDisable()
     {
-        _mouseInput.DetectedCube -= OnCubeHandler;
+        _observer.ClickedCube -= OnClick;
     }
 
     private void Start()
     {
-        _cubePrefab.transform.position = transform.position;
         int initChance = 100;
 
         for (int i = 0; i < _initCubeCount; i++)
             CreateNewCube(_cubePrefab, initChance, Vector3.one);
     }
 
-    private void OnCubeHandler(Cube cube)
+    private void OnClick(Cube cube)
     {
         if (cube.TrySplit())
             CreateCubes(cube);
@@ -64,7 +61,7 @@ public class Spawner : MonoBehaviour
         Vector3 position = cube.transform.position + Random.onUnitSphere * _radius;
         position.y = Mathf.Abs(position.y);
 
-        Cube newCube = Instantiate(cube, position, Random.rotation);
+        Cube newCube = Instantiate(cube, position, Quaternion.identity);
         newCube.Initialize(chance, scale);
     }
 

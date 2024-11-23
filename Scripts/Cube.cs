@@ -4,7 +4,6 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
-
 public class Cube : MonoBehaviour
 {
     private Renderer _renderer;

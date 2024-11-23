@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-public class MouseInput : MonoBehaviour
+public class Observer : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
 
     private Ray _ray;
-    
-    public event Action<Cube> DetectedCube;
-    
+
+    public event Action<Cube> ClickedCube;
+
     private void Update()
     {
         int leftMouseButton = 0;
@@ -19,7 +19,7 @@ public class MouseInput : MonoBehaviour
 
             if (Physics.Raycast(_ray, out RaycastHit hit))
                 if (hit.collider.TryGetComponent(out Cube cube))
-                    DetectedCube?.Invoke(cube);
+                    ClickedCube?.Invoke(cube);
         }
     }
 }
